@@ -29,10 +29,19 @@ async function createUser(req, res) {
             password: hashedPassword
         })
 
-        return res.status(200).json({
-            message: "User signed up successfully",
-            userId: newUser._id
-        });
+        req.session.userId = newUser._id
+
+        req.session.save((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Session save failed" })
+            }
+
+            res.status(200).json({
+                message: "User signed up & logged in",
+                userId: newUser._id
+            })
+        })
+
 
     } catch (e) {
         return res.status(500).json({
@@ -47,32 +56,34 @@ async function login(req, res) {
     const password = req.body.password
 
     if (!username || !password) {
-        return res.status(400).json({
-            message: "Username and password required"
-        })
+        return res.status(400).json({ message: "Username and password required" })
     }
+
     const existingUser = await User.findOne({ username })
-
     if (!existingUser) {
-        return res.status(401).json({
-            message: "Invalid credentials"
-        })
+        return res.status(401).json({ message: "Invalid credentials" })
     }
 
-    const isPassword = await bcrypt.compare(
-        password,
-        existingUser.password
-    )
+    const isPassword = await bcrypt.compare(password, existingUser.password)
     if (!isPassword) {
-        return res.status(401).json({
-            message: "Invalid credentials"
-        })
+        return res.status(401).json({ message: "Invalid credentials" })
     }
-    req.session.userId = existingUser._id
-    return res.json({
-        message: "Login Succesfull"
-    })
 
+    
+    req.session.userId = existingUser._id
+
+    
+    req.session.save((err) => {
+        if (err) {
+            console.log(err)
+            return res.status(500).json({ message: "Session save failed" })
+        }
+
+        console.log("Session saved:", req.session)
+
+        res.json({ message: "Login Successful" })
+    })
 }
+
 
 module.exports = { createUser, login }

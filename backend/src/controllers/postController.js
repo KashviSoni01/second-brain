@@ -1,4 +1,5 @@
 const Post = require("../models/post")
+const session = require("express-session") 
 
 async function createPost(req, res) {
     const title = req.body.title
