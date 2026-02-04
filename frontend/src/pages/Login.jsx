@@ -17,7 +17,7 @@ export default function Login() {
     try {
       setError(null)
       setLoading(true)
-      const res = await fetch("https://second-brain-4-79no.onrender.com/api/auth/login", {
+      const res = await fetch("https://second-brain-5.onrender.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

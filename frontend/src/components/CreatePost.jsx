@@ -9,7 +9,7 @@ function CreatePost({ isOpen, onClose, onPostCreated }) {
 
     const sendPost = async () => {
         try {
-            const res=await fetch("https://second-brain-4-79no.onrender.com/api/post", {
+            const res=await fetch("https://second-brain-5.onrender.com/api/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

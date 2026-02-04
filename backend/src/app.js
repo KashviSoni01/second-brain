@@ -8,16 +8,19 @@ const { createUser, login } = require("./controllers/authController")
 const { createPost, seePost, deletePost } = require("./controllers/postController")
 const authMiddleware = require("./middlewares/authMiddleware")
 const app = express()
-
+app.use(express.json());
 app.use(cors({
-  origin: true,
+  origin: [
+    "http://localhost:5175/",
+    "https://second-brain-sable-eta.vercel.app/"
+  ],
   credentials: true
-}))
+}));
 
+/* 🔥 2️⃣ TELL EXPRESS IT’S BEHIND RENDER PROXY */
+app.set("trust proxy", 1);
 
-
-app.use(express.json())
-
+/* 🔥 3️⃣ SESSION AFTER trust proxy */
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -25,8 +28,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: "lax",   
-      secure: false       
+      secure: true,
+      sameSite: "none"
     }
   })
 );
