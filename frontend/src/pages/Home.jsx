@@ -48,7 +48,7 @@ export default function Home() {
 
   const fetchposts = async () => {
     try {
-      const res = await fetch("https://second-brain-jllo.onrender.com/api/post", {
+      const res = await fetch("http://localhost:3001/api/post", {
         method: "GET",
         credentials: "include"
       })
@@ -67,7 +67,7 @@ export default function Home() {
 
   const handleDelete = async (postId) => {
     try {
-      const res = await fetch(`https://second-brain-jllo.onrender.com/api/post/${postId}`, {
+      const res = await fetch(`http://localhost:3001/api/post/${postId}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -87,7 +87,7 @@ export default function Home() {
 
   const handleLogout = async() => {
     try {
-      const res = await fetch("https://second-brain-jllo.onrender.com/api/auth/logout", {
+      const res = await fetch("http://localhost:3001/api/auth/logout", {
         method: "POST",
         credentials: "include"
       });

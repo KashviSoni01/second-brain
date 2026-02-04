@@ -15,7 +15,7 @@ export default function Signup() {
         try {
             setError(null);
             setLoading(true);
-            const res = await fetch("https://second-brain-jllo.onrender.com/api/auth/signup", {
+            const res = await fetch("http://localhost:3001/api/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

@@ -54,6 +54,7 @@ async function createUser(req, res) {
 async function login(req, res) {
     const username = req.body.username
     const password = req.body.password
+    console.log("in login");
 
     if (!username || !password) {
         return res.status(400).json({ message: "Username and password required" })
