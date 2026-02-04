@@ -11,8 +11,8 @@ const app = express()
 app.use(express.json());
 app.use(cors({
   origin: [
-    "http://localhost:5175/",
-    "https://second-brain-sable-eta.vercel.app/"
+    "http://localhost:5175",
+    "https://second-brain-sable-eta.vercel.app"
   ],
   credentials: true
 }));
